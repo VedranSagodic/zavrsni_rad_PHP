@@ -17,6 +17,7 @@ spl_autoload_register(function($class)
     foreach($paths as $p){
         if(file_exists($p . DIRECTORY_SEPARATOR . $class . '.php')){
             include $p . DIRECTORY_SEPARATOR . $class . '.php';
+            break;
         }
     }
 });
