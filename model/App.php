@@ -15,20 +15,22 @@ class App
             $class=ucfirst($parts[1]);
         }
 
-        $class .='Controller';
+        $class .= 'Controller';
+
+
 
         $function='';
         if(!isset($parts[2]) || $parts[2]===''){
-            $function='Index';
+            $function='index';
         }else{
             $function=$parts[2];
         }
-
+        
         if(class_exists($class) && method_exists($class,$function)){
             $instance = new $class();
             $instance->$function();
         }else{
-            echo 'Create function inside class' . $class . '-&gt;' . $function;
+            echo 'Create function inside class ' . $class . '-&gt;' . $function;
         }
         
     }

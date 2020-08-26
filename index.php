@@ -6,7 +6,7 @@ define('BP', __DIR__ . DIRECTORY_SEPARATOR);
 $a = implode(PATH_SEPARATOR,
         [
             BP . 'model',
-            BP. 'controller'
+            BP . 'controller'
         ]);
 
 set_include_path($a);
