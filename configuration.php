@@ -4,5 +4,5 @@
 return [
     'dev' => true,
     'titleAPP' => 'Properties APP',
-    'url' => 'http://zavrsnirad.hr/'
+    'url' => 'https://polaznik13.edunova.hr/'
 ];
