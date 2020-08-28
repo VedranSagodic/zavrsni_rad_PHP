@@ -6,4 +6,8 @@ class IndexController extends Controller
     {
         $this->view->render('home');
     }
+    public function aboutus()
+    {
+        $this->view->render('aboutus');
+    }
 }

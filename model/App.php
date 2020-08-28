@@ -34,4 +34,19 @@ class App
         }
         
     }
+
+    public static function config($key)
+    {
+        $file = BP . 'configuration.php';
+        $configuration = include $file;
+
+        if(array_key_exists($key,$configuration)){
+            return $configuration[$key];
+        }else if ($configuration['dev']){
+            return 'Key ' . $key . ' does not exist ' . $file;
+        }else{
+            return 'Key ' . $key . ' does not exist';
+        }
+
+    }
 }

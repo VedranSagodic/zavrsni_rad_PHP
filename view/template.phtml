@@ -1,11 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <?php include_once 'template/header.phtml'; ?>
+  </head>
 <body>
-    <?=$content ?>
+    <div class="grid-container">
+    <?php include_once 'template/menu.phtml'; ?>
+    <div class="grid-x">
+      <div class="large-12 small-12 cell">
+        <div class="callout" style="min-height: 400px;">
+        <?php echo $content; ?>
+      </div>
+      
+      </div>
+    </div>
+    
+
+    <?php include_once 'template/footer.phtml'; ?>
+
+    </div>
+    
+
+<?php include_once 'template/scripts.phtml'; ?>
+
 </body>
 </html>
