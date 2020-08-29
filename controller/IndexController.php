@@ -10,4 +10,8 @@ class IndexController extends Controller
     {
         $this->view->render('aboutus');
     }
+    public function properties()
+    {
+        $this->view->render('properties');
+    }
 }
