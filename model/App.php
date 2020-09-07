@@ -4,49 +4,57 @@ class App
 {
     public static function start()
     {
-        $route = Request::getRoute();
+        $ruta = Request::getRuta();
 
-        $parts=explode('/',$route);
+        //echo $ruta;
 
-        $class='';
-        if(!isset($parts[1]) || $parts[1]===''){
-            $class='Index';
+        $djelovi=explode('/',$ruta);
+
+        $klasa='';
+        if(!isset($djelovi[1]) || $djelovi[1]===''){
+            $klasa='Index';
         }else{
-            $class=ucfirst($parts[1]);
+            $klasa=ucfirst($djelovi[1]);
         }
 
-        $class .= 'Controller';
+        $klasa .= 'Controller';
+
+        //echo $klasa;
 
 
-
-        $function='';
-        if(!isset($parts[2]) || $parts[2]===''){
-            $function='index';
+        $funkcija='';
+        if(!isset($djelovi[2]) || $djelovi[2]===''){
+            $funkcija='index';
         }else{
-            $function=$parts[2];
+            $funkcija=$djelovi[2];
         }
-        
-        if(class_exists($class) && method_exists($class,$function)){
-            $instance = new $class();
-            $instance->$function();
+
+        //echo $klasa . '-&gt;' . $funkcija;
+
+        if(class_exists($klasa) && method_exists($klasa,$funkcija)){
+            $instanca = new $klasa();
+            $instanca->$funkcija();
         }else{
-            echo 'Create function inside class ' . $class . '-&gt;' . $function;
+            // integrirati u view
+            echo 'Kreirati funkciju unutar klase ' . $klasa . '-&gt;' . $funkcija;
         }
-        
+
     }
 
-    public static function config($key)
+
+    public static function config($kljuc)
     {
-        $file = BP . 'configuration.php';
-        $configuration = include $file;
+        $datoteka = BP . 'konfiguracija.php';
+        $konfiguracija = include $datoteka;
 
-        if(array_key_exists($key,$configuration)){
-            return $configuration[$key];
-        }else if ($configuration['dev']){
-            return 'Key ' . $key . ' does not exist ' . $file;
+        if(array_key_exists($kljuc,$konfiguracija)){
+            return $konfiguracija[$kljuc];
+        }else if ($konfiguracija['dev']){
+            return 'Ključ ' . $kljuc . ' ne postoji u ' . $datoteka;
         }else{
-            return 'Key ' . $key . ' does not exist';
+            return 'Ključ ' . $kljuc . ' ne postoji';
         }
 
     }
+
 }

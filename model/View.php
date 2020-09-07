@@ -4,18 +4,20 @@ class View
 {
     private $layout;
 
-    public function __construct($layout='template')
+    public function __construct($layout='predlozak')
     {
         $this->layout=$layout;
     }
 
-    public function render($page,$parameters=[])
+    public function render($stranica,$parametri=[])
     {
         ob_start();
-        extract($parameters);
-        include BP . 'view' . DIRECTORY_SEPARATOR . $page . '.phtml';
-        $content = ob_get_clean();
+        extract($parametri);
+        include BP . 'view' . DIRECTORY_SEPARATOR . $stranica . '.phtml';
+        $sadrzaj = ob_get_clean();
         include BP . 'view' . DIRECTORY_SEPARATOR . $this->layout . '.phtml';
     }
-    
+
+
+
 }

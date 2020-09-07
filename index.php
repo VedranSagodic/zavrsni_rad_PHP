@@ -1,25 +1,29 @@
 <?php
-
+//https://medium.com/@noufel.gouirhate/create-your-own-mvc-framework-in-php-af7bd1f0ca19
 session_start();
-define('BP', __DIR__ . DIRECTORY_SEPARATOR);
+define('BP',__DIR__ . DIRECTORY_SEPARATOR);
+//echo BP;
 
-$a = implode(PATH_SEPARATOR,
-        [
-            BP . 'model',
-            BP . 'controller'
-        ]);
+$t = implode(PATH_SEPARATOR,
+                [
+                    BP . 'model',
+                    BP . 'controller'
+                ]);
 
-set_include_path($a);
+//print_r($t);
 
-spl_autoload_register(function($class)
+set_include_path($t);
+
+spl_autoload_register(function($klasa)
 {
-    $paths = explode(PATH_SEPARATOR,get_include_path());
-    foreach($paths as $p){
-        if(file_exists($p . DIRECTORY_SEPARATOR . $class . '.php')){
-            include $p . DIRECTORY_SEPARATOR . $class . '.php';
+    $putanje = explode(PATH_SEPARATOR,get_include_path());
+    foreach($putanje as $p){
+        if(file_exists($p . DIRECTORY_SEPARATOR . $klasa . '.php' )){
+            include $p . DIRECTORY_SEPARATOR . $klasa . '.php';
             break;
         }
     }
 });
 
+// https://www.php.net/manual/en/language.oop5.paamayim-nekudotayim.php
 App::start();
