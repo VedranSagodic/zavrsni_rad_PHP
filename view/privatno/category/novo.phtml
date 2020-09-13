@@ -1,0 +1,27 @@
+<form
+    action="<?=APP::config('url') ?>category/novo" 
+    method="POST">
+
+    <label>Name
+        <input type="text" name="name" 
+        value="<?=$category['name']?>" />
+    </label>
+
+    <p>
+        <?=$poruka ?>
+    </p>
+
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 small-12 cell">
+        <a class="button expanded alert" 
+        href="<?=APP::config('url') ?>category/index">
+            Cancel
+        </a>    
+        </div>
+        <div class="large-6 small-12 cell">
+            <input type="submit" class="button expanded" 
+                value="Add new category"></input>
+        </div>
+    </div>
+
+</form>

@@ -18,9 +18,19 @@ class IndexController extends Controller
         $this->view->render('onama');
     }
 
+    public function notfound($poruka)
+    {
+        $this->view->render('notfound',['poruka'=>$poruka]);
+    }
+
     public function login()
     {
-        $this->loginView('','Login with e-mail and password');
+
+        if($this->kontrolaLogiran()){
+            return;
+        }
+
+        $this->loginView('','Popunite tražene podatke');
     }
 
     public function logout()
@@ -32,6 +42,9 @@ class IndexController extends Controller
 
     public function autorizacija()
     {
+        if($this->kontrolaLogiran()){
+            return;
+        }
 
        if(!isset($_POST['email']) || !isset($_POST['lozinka'])){
             $this->login();
@@ -96,6 +109,16 @@ class IndexController extends Controller
         ]);
     }
     
+    private function kontrolaLogiran()
+    {
+        if(isset($_SESSION['autoriziran'])){
+            $np = new NadzornaplocaController();
+            $np->index();
+            return true;
+        }
+
+        return false;
+    }
 
     public function test(){
         echo password_hash("a", PASSWORD_BCRYPT);

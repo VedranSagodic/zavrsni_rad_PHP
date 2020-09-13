@@ -8,16 +8,32 @@
     <ul class="dropdown menu" data-dropdown-menu>
       <li>
       <a href="<?=APP::config('url') ?>">
-            <?=APP::config('nazivAPP') ?>
+        <i class="fas fa-home"></i>
         </a>
     </li>
 
-      <li><a href="<?=APP::config('url') ?>index/onama">About us</a></li>
-      
-      <li><a href="<?=APP::config('url') ?>index/properties">Properites</a></li>
+    <li><a href="<?=APP::config('url') ?>index/onama">
+       <i class="fas fa-address-card"></i> About US
+       </a>
+       </li>
 
-      <?php if(isset($_SESSION['autoriziran'])): ?>
-        <!-- ovdje dođe privatni dio izbornika -->
+    <?php if(isset($_SESSION['autoriziran'])): ?>
+        <li>
+        <a href="#">Properties</a>
+        <ul class="menu vertical">
+          <li><a href="<?=APP::config('url') ?>nadzornaploca/index">Nadzorna ploča</a></li>
+          <li><a href="<?=APP::config('url') ?>category/index">Categories</a></li>
+          <li><a href="<?=APP::config('url') ?>property/index">Properties</a></li>
+          <li><a href="<?=APP::config('url') ?>review/index">Reviews</a></li>
+          <li><a href="<?=APP::config('url') ?>image/index">Images</a></li>
+          <?php if($_SESSION['autoriziran']->uloga==='admin'): ?>
+            <li><a href="<?=APP::config('url') ?>operater/index">Operators</a></li>
+          <?php else: ?>
+            <li><a href="<?=APP::config('url') ?>nadzornaploca/profil">Operators profile</a></li>
+          <?php endif; ?>
+        </ul>
+      </li>
+        
       <?php endif; ?>
     </ul>
   </div>
@@ -25,9 +41,15 @@
     <ul class="menu">
       <li>
           <?php if(!isset($_SESSION['autoriziran'])): ?>
-          <a href="<?=APP::config('url') ?>index/login">Login</a>
+            <a href="<?=APP::config('url') ?>index/login">
+              <i class="fas fa-sign-in-alt"></i>
+            </a>
           <?php else: ?>
-            <a href="<?=APP::config('url') ?>index/logout">Logout</a>
+            <a href="<?=APP::config('url') ?>index/logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <?=$_SESSION['autoriziran']->ime?>, 
+            <?=$_SESSION['autoriziran']->uloga?>
+            </a>
           <?php endif; ?>
         
         </li>

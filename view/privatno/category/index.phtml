@@ -1,0 +1,32 @@
+<?php 
+// najlošije rješenje dovlačenja podataka iz baze je da ovdje se spojimo
+// i dovučemo podatke
+
+?>
+
+<a class="button expanded success" href="<?=APP::config('url') ?>category/novo">
+    <?php include BP . 'view/predlozak/izgledDodajNovi.phtml' ?>
+</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($categories as $category): ?>
+            <tr>
+                <td><?=$category->name?></td>
+                <td>
+                <a href="<?=APP::config('url') ?>category/promjena?sifra=<?=$category->id?>">
+                    <?php include BP . 'view/predlozak/izgledPromjeni.phtml' ?>
+                </a>
+                <a href="<?=APP::config('url') ?>category/brisanje?sifra=<?=$category->id?>">
+                    <?php include BP . 'view/predlozak/izgledObrisi.phtml' ?>
+                </a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
