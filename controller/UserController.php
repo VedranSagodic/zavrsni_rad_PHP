@@ -58,7 +58,18 @@ class UserController extends AutorizacijaController
             $this->novoView('Obavezno unos imena',$_POST);
             return;
         }
-
+        if(strlen(trim($user['surname']))===0){
+            $this->novoView('Obavezno unos prezimena',$_POST);
+            return;
+        }
+        if(strlen(trim($user['password']))===0){
+            $this->novoView('Obavezno unos lozinke',$_POST);
+            return;
+        }
+        if(strlen(trim($user['e_mail']))===0){
+            $this->novoView('Obavezno unos e-maila',$_POST);
+            return;
+        }
 
         User::dodajNovi($_POST);
 
