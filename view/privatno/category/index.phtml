@@ -20,10 +20,10 @@
             <tr>
                 <td><?=$category->name?></td>
                 <td>
-                <a href="<?=APP::config('url') ?>category/promjena?sifra=<?=$category->id?>">
+                <a href="<?=APP::config('url') ?>category/promjena?id=<?=$category->id?>">
                     <?php include BP . 'view/predlozak/izgledPromjeni.phtml' ?>
                 </a>
-                <a href="<?=APP::config('url') ?>category/brisanje?sifra=<?=$category->id?>">
+                <a href="<?=APP::config('url') ?>category/brisanje?id=<?=$category->id?>">
                     <?php include BP . 'view/predlozak/izgledObrisi.phtml' ?>
                 </a>
                 </td>

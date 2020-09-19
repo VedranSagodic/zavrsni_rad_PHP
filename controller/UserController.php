@@ -10,8 +10,6 @@ class UserController extends AutorizacijaController
 
     public function index()
     {
-        // manje loše rješenje dovlačenja podataka iz baze je da ovdje se spojimo
-        // i dovučemo podatke
 
         $users = User::ucitajSve();
         foreach($users as $user){
@@ -35,61 +33,58 @@ class UserController extends AutorizacijaController
             'users'=>$users
         ]);
     }
+
+
+    
     public function novo()
     {
         if ($_SERVER['REQUEST_METHOD']==='GET'){
-            $this->novoView('Unesite tražene podatke',[
-                'name'=>'',
-                'surname'=>'',
-                'password'=>'',
-                'e_mail'=>'',
-                'phone'=>'',
-                'address'=>'',
-            ]);
+            $user=new stdClass();
+            $user->name='';
+            $user->surname='';
+            $user->password='';
+            $user->e_mail='';
+            $user->phone='';
+            $user->address='';
+            $this->novoView('Unesite tražene podatke',$user);
             return;
         }
-
-
-        //radi se o POST i moram kontrolirati prije unosa u bazu
-        // kontroler mora kontrolirati vrijednosti prije nego se ode u bazu
-        $user=$_POST;
-
-        if(strlen(trim($user['name']))===0){
-            $this->novoView('Obavezno unos imena',$_POST);
-            return;
-        }
-        if(strlen(trim($user['surname']))===0){
-            $this->novoView('Obavezno unos prezimena',$_POST);
-            return;
-        }
-        if(strlen(trim($user['password']))===0){
-            $this->novoView('Obavezno unos lozinke',$_POST);
-            return;
-        }
-        if(strlen(trim($user['e_mail']))===0){
-            $this->novoView('Obavezno unos e-maila',$_POST);
-            return;
-        }
-
+        $user=(object)$_POST;
+        if(!$this->kontrolaNaziv($user,'novoView')){return;};
         User::dodajNovi($_POST);
-
-        // unese i prebaci te na popis svih smjerova
         $this->index();
-
-        //unese i ostavi te s svim podacima na trenutnoj stranici
-        //$this->novoView('Smjer unesen, nastavite s unosom novih podataka',$_POST);
-        
     }
 
+
+
+    
     public function promjena()
     {
-        
+        if ($_SERVER['REQUEST_METHOD']==='GET'){
+            $this->promjenaView('Promjenite željene podatke',
+            User::ucitaj($_GET['sifra']));
+            return;
+        }
+
+        $user=(object)$_POST;
+        if(!$this->kontrolaNaziv($user,'promjenaView')){return;};
+        User::promjena($_POST);
+        $this->index();
     }
 
     public function brisanje()
     {
-        
+              //kontrola da li je šifra došla
+              User::brisanje($_GET['sifra']);
+              $this->index();  
     }
+
+
+
+
+
+
+
 
     private function novoView($poruka,$user)
     {
@@ -97,6 +92,29 @@ class UserController extends AutorizacijaController
             'poruka'=>$poruka,
             'user' => $user
         ]);
+    }
+
+    private function promjenaView($poruka,$user)
+    {
+        $this->view->render($this->viewDir . 'promjena',[
+            'poruka'=>$poruka,
+            'user' => $user
+        ]);
+    }
+
+    private function kontrolaNaziv($user, $view)
+    {
+        if(strlen(trim($user->name))===0){
+            $this->$view('Obavezno unos imena',$user);
+            return false;
+        }
+
+        if(strlen(trim($user->name))>50){
+            $this->$view('Dužina imena prevelika',$user);
+            return false;
+        }
+        // na kraju uvijek vrati true
+        return true;
     }
 
 }
