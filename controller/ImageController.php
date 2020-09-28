@@ -15,19 +15,19 @@ class ImageController extends AutorizacijaController
 
         $images = Image::ucitajSve();
         foreach($images as $image){
-            if(strlen($category->name)>20){
-               $category->name=substr($category->name,0,20) . '...';
+            if(strlen($image->image_files)>20){
+               $image->image_files=substr($image->image_files,0,20) . '...';
             }
         }
         $this->view->render($this->viewDir . 'index',[
-            'categories'=>$categories
+            'images'=>$images
         ]);
     }
     public function novo()
     {
         if ($_SERVER['REQUEST_METHOD']==='GET'){
             $this->novoView('Unesite tražene podatke',[
-                'name'=>'',
+                'image_files'=>'',
             ]);
             return;
         }
@@ -35,15 +35,15 @@ class ImageController extends AutorizacijaController
 
         //radi se o POST i moram kontrolirati prije unosa u bazu
         // kontroler mora kontrolirati vrijednosti prije nego se ode u bazu
-        $category=$_POST;
+        $image=$_POST;
 
-        if(strlen(trim($category['name']))===0){
-            $this->novoView('Obavezno unos naziva',$_POST);
+        if(strlen(trim($image['image_files']))===0){
+            $this->novoView('Obavezno unos fotografije',$_POST);
             return;
         }
 
 
-        Category::dodajNovi($_POST);
+        Image::dodajNovi($_POST);
 
         // unese i prebaci te na popis svih smjerova
         $this->index();
@@ -57,47 +57,47 @@ class ImageController extends AutorizacijaController
     {
         if ($_SERVER['REQUEST_METHOD']==='GET'){
             $this->promjenaView('Promjenite željene podatke',
-            Category::ucitaj($_GET['id']));
+            Image::ucitaj($_GET['id']));
             return;
         }
-        $category=(object)$_POST;
-        if(!$this->kontrolaNaziv($category,'promjenaView')){return;};
-        Category::promjena($_POST);
+        $image=(object)$_POST;
+        if(!$this->kontrolaNaziv($image,'promjenaView')){return;};
+        Image::promjena($_POST);
         $this->index();
     }
 
     public function brisanje()
     {
-        Category::brisanje($_GET['id']);
+        Image::brisanje($_GET['id']);
         $this->index();
     }
 
-    private function novoView($poruka,$category)
+    private function novoView($poruka,$image)
     {
         $this->view->render($this->viewDir . 'novo',[
             'poruka'=>$poruka,
-            'category' => $category
+            'image' => $image
         ]);
     }
 
 
-    private function promjenaView($poruka,$category)
+    private function promjenaView($poruka,$image)
     {
         $this->view->render($this->viewDir . 'promjena',[
             'poruka'=>$poruka,
-            'category' => $category
+            'image' => $image
         ]);
     }
 
-    private function kontrolaNaziv($category, $view)
+    private function kontrolaNaziv($image, $view)
     {
-        if(strlen(trim($category->name))===0){
-            $this->$view('Obavezno unos naziva',$category);
+        if(strlen(trim($image->image_files))===0){
+            $this->$view('Obavezno unos fotografije',$image);
             return false;
         }
 
-        if(strlen(trim($category->name))>50){
-            $this->$view('Dužina naziva prevelika',$category);
+        if(strlen(trim($image->image_files))>50){
+            $this->$view('Dužina naziva prevelika',$image);
             return false;
         }
         // na kraju uvijek vrati true

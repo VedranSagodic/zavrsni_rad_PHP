@@ -8,9 +8,9 @@ class Image
         $veza = DB::getInstanca();
         $izraz = $veza->prepare('
         
-        select a.id, a.name, count(b.id ) as category
-                from category a left join property b on
-                a.id=b.category group by a.id, a.name;
+        select a.id, a.image_files, count(b.id ) as image
+                from image a left join property b on
+                a.id=b.id group by a.id, a.image_files;
 
         ');
         $izraz->execute();
