@@ -46,7 +46,6 @@ class PropertyController extends AutorizacijaController
     public function promjena()
     {
         $entitet = Property::ucitaj($_GET['id']);
-        $entitet->build_year=str_replace(' ','T',$entitet->build_year);
         if ($_SERVER['REQUEST_METHOD']==='GET'){
 
             $this->promjenaView('Promjenite željene podatke',

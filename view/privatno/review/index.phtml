@@ -11,6 +11,8 @@
 <table class="table">
     <thead>
         <tr>
+            <th>User</th>
+            <th>Property</th>
             <th>Comment</th>
             <th>Grade</th>
             <th>Posted date</th>
@@ -20,6 +22,8 @@
     <tbody>
         <?php foreach($reviews as $review): ?>
             <tr>
+                <td><?=$review->users?></td>
+                <td><?=$review->property?></td>
                 <td><?=$review->comment?></td>
                 <td><?=$review->grade?></td>
                 <td><?=$review->posted_date?></td>

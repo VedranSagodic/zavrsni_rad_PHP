@@ -1,0 +1,85 @@
+<form
+    action="<?=APP::config('url') ?>property/novo" 
+    method="POST">
+    <label>Name
+        <input type="text" name="name" 
+        value="<?=$entitet->name?>" />
+    </label>
+    <label>Location
+        <input type="text" name="location" 
+        value="<?=$entitet->location?>" />
+    </label>
+    <label>Room number
+        <input type="number" name="room_number" 
+        value="<?=$entitet->room_number?>" />
+    </label>
+    <label>Bathroom Number
+        <input type="number" name="bathroom_number" 
+        value="<?=$entitet->bathroom_number?>" />
+    </label>
+    <label>Build Year
+        <input type="number" name="build_year" 
+        value="<?=$entitet->build_year?>" />
+    </label>
+    <label>Condition
+        <input type="text" name="condition_" 
+        value="<?=$entitet->condition_?>" />
+    </label>
+    <label>Price
+        <input type="number" name="price" 
+        value="<?=$entitet->price?>" />
+    </label>
+    <label>Description
+        <input type="text" name="description" 
+        value="<?=$entitet->description?>" />
+    </label>
+
+    <div class="grid-x grid-padding-x">
+        <div class="large-4 small-12 cell">
+            <label>User
+              <select name="users" id="user">
+                <option <?php if($entitet->users==0){
+                    echo ' selected="selected" ';
+                }?> value="0">Odaberite korisnika</option>
+                <?php foreach($users as $user): ?>
+                    <option <?php if($entitet->users==$user->id){
+                    echo ' selected="selected" ';
+                }?> value="<?=$user->id?>"><?=$user->name?> <?=$user->surname?></option>
+                <?php endforeach; ?>
+              </select>
+            </label>
+        </div>
+        <div class="large-4 small-12 cell">
+            <label>Category
+            <select name="category" id="category">
+            <option <?php if($entitet->category==0){
+                    echo ' selected="selected" ';
+                }?> value="0">Odaberite kategoriju</option>
+                <?php foreach($categories as $category): ?>
+                    <option <?php if($entitet->category==$category->id){
+                    echo ' selected="selected" ';
+                }?> value="<?=$category->id?>"><?=$category->name?></option>
+                <?php endforeach; ?>
+            </select>
+            </label>
+
+
+
+    <p>
+        <?=$poruka ?>
+    </p>
+
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 small-12 cell">
+        <a class="button expanded alert" 
+        href="<?=APP::config('url') ?>property/index">
+            Odustani
+        </a>    
+        </div>
+        <div class="large-6 small-12 cell">
+            <input type="submit" class="button expanded" 
+                value="Unesi novu nekretninu"></input>
+        </div>
+    </div>
+
+</form>
