@@ -55,12 +55,21 @@ class CategoryController extends AutorizacijaController
 
     public function promjena()
     {
-        
+        if ($_SERVER['REQUEST_METHOD']==='GET'){
+            $this->promjenaView('Promjenite željene podatke',
+            Category::ucitaj($_GET['id']));
+            return;
+        }
+        $category=(object)$_POST;
+        if(!$this->kontrolaNaziv($category,'promjenaView')){return;};
+        Category::promjena($_POST);
+        $this->index();
     }
 
     public function brisanje()
     {
-        
+        Category::brisanje($_GET['id']);
+        $this->index();
     }
 
     private function novoView($poruka,$category)
@@ -69,6 +78,30 @@ class CategoryController extends AutorizacijaController
             'poruka'=>$poruka,
             'category' => $category
         ]);
+    }
+
+
+    private function promjenaView($poruka,$category)
+    {
+        $this->view->render($this->viewDir . 'promjena',[
+            'poruka'=>$poruka,
+            'category' => $category
+        ]);
+    }
+
+    private function kontrolaNaziv($category, $view)
+    {
+        if(strlen(trim($category->name))===0){
+            $this->$view('Obavezno unos naziva',$category);
+            return false;
+        }
+
+        if(strlen(trim($category->name))>50){
+            $this->$view('Dužina naziva prevelika',$category);
+            return false;
+        }
+        // na kraju uvijek vrati true
+        return true;
     }
 
 }

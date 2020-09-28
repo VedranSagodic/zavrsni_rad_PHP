@@ -9,11 +9,11 @@ class User
         $veza = DB::getInstanca();
         $izraz = $veza->prepare('
         
-        select a.sifra, a.name, a.surname, a.password, a.e_mail,
+        select a.id, a.name, a.surname, a.password, a.e_mail,
         a.phone, a.address, 
-        count(b.sifra ) as property
+        count(b.id ) as property
         from users a left join property b on
-        a.sifra=b.users group by a.sifra, a.name, a.surname, 
+        a.id=b.users group by a.id, a.name, a.surname, 
         a.password, a.e_mail, a.phone, a.address order by :slozi;
         
         ');
@@ -27,10 +27,10 @@ class User
         $veza = DB::getInstanca();
         $izraz = $veza->prepare('
         
-                select * from users where sifra=:sifra;
+                select * from users where id=:id;
 
         ');
-        $izraz->execute(['sifra'=>$sifra]);
+        $izraz->execute(['id'=>$sifra]);
         return $izraz->fetch();
     }
 
@@ -50,7 +50,7 @@ class User
         e_mail=:e_mail,
         phone=:phone,
         address=:address
-        where sifra=:sifra;');
+        where id=:id;');
         $izraz->execute($user);
     }
 
@@ -58,7 +58,7 @@ class User
     
     public static function brisanje($sifra){
         $veza = DB::getInstanca();
-        $izraz = $veza->prepare('delete from users where sifra=:sifra;');
-        $izraz->execute(['sifra'=>$sifra]);
+        $izraz = $veza->prepare('delete from users where id=:id;');
+        $izraz->execute(['id'=>$sifra]);
     }
 }

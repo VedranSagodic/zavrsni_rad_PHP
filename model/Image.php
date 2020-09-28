@@ -1,11 +1,10 @@
 <?php 
 
-class Category
+class Image
 {
 
-    public static function ucitajSve($poCemu='name', $uzlaznoSilazno='asc')
+    public static function ucitajSve()
     {
-        $order = $poCemu . ' ' . $uzlaznoSilazno;
         $veza = DB::getInstanca();
         $izraz = $veza->prepare('
         
@@ -14,7 +13,6 @@ class Category
                 a.id=b.category group by a.id, a.name;
 
         ');
-        $izraz->bindParam('slozi',$order);
         $izraz->execute();
         return $izraz->fetchAll();
     }
@@ -24,7 +22,7 @@ class Category
         $veza = DB::getInstanca();
         $izraz = $veza->prepare('
         
-                select * from category where id=:id;
+                select * from image where id=:id;
 
         ');
         $izraz->execute(['id'=>$sifra]);
@@ -33,28 +31,28 @@ class Category
 
 
 
-    public static function dodajNovi($category){
+    public static function dodajNovi($image){
         $veza = DB::getInstanca();
-        $izraz = $veza->prepare('insert into category (name)
-        values (:name);');
-        $izraz->execute($category);
+        $izraz = $veza->prepare('insert into image (image_files)
+        values (:image_files);');
+        $izraz->execute($image);
     }
 
 
 
-    public static function promjena($category){
+    public static function promjena($image){
         $veza = DB::getInstanca();
-        $izraz = $veza->prepare('update category set 
-        name=:name
+        $izraz = $veza->prepare('update image set 
+        image_files=:image_files
         where id=:id;');
-        $izraz->execute($category);
+        $izraz->execute($image);
     }
 
 
     
     public static function brisanje($sifra){
         $veza = DB::getInstanca();
-        $izraz = $veza->prepare('delete from category where id=:id;');
+        $izraz = $veza->prepare('delete from image where id=:id;');
         $izraz->execute(['id'=>$sifra]);
     }
 

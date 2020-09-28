@@ -1,1 +1,33 @@
-Image
+<?php 
+// najlošije rješenje dovlačenja podataka iz baze je da ovdje se spojimo
+// i dovučemo podatke
+
+?>
+
+<a class="button expanded success" href="<?=APP::config('url') ?>image/novo">
+    <?php include BP . 'view/predlozak/izgledDodajNovi.phtml' ?>
+</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($images as $image): ?>
+            <tr>
+                <td><?=$image->image_files?></td>
+                <td>
+                <a href="<?=APP::config('url') ?>image/promjena?id=<?=$image->id?>">
+                    <?php include BP . 'view/predlozak/izgledPromjeni.phtml' ?>
+                </a>
+                <a href="<?=APP::config('url') ?>image/brisanje?id=<?=$image->id?>">
+                    <?php include BP . 'view/predlozak/izgledObrisi.phtml' ?>
+                </a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>

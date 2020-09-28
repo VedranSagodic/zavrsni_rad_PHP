@@ -7,7 +7,7 @@ create database nekretnine;
 use nekretnine;
 
 create table operater(
-    sifra   int not null primary key auto_increment,
+    id   int not null primary key auto_increment,
     email   varchar(50) not null,
     lozinka char(60) not null,
     ime     varchar(50) not null,
@@ -24,7 +24,7 @@ insert into operater(email,lozinka,ime,prezime,uloga) values
 'Admin', 'Edunova', 'admin');
 
 create table users (
-sifra       int not null primary key auto_increment,
+id       int not null primary key auto_increment,
 name       varchar(50),
 surname    varchar(50),
 password   varchar(50),
@@ -34,7 +34,7 @@ address	   varchar(100)
 );
 
 create table property(
-sifra				int not null primary key auto_increment,
+id				int not null primary key auto_increment,
 users			int not null,
 category		int not null,
 name			varchar(50),
@@ -49,18 +49,18 @@ description		text
 );
 
 create table category(
-sifra int not null primary key auto_increment,
+id int not null primary key auto_increment,
 name varchar(50)
 );
 
 create table image(
-sifra int not null primary key auto_increment,
+id int not null primary key auto_increment,
 property	int not null, 
 image_files varchar(100)
 );
 
 create table review(
-sifra int not null primary key auto_increment,
+id int not null primary key auto_increment,
 users		int not null,
 property	int not null,
 comment 	varchar(250),
@@ -68,10 +68,10 @@ grade 		int,
 posted_date datetime
 );
 
-alter table property add foreign key (users) references users(sifra);
-alter table property add foreign key (category) references category(sifra);
+alter table property add foreign key (users) references users(id);
+alter table property add foreign key (category) references category(id);
 
-alter table image add foreign key (property) references property(sifra);
+alter table image add foreign key (property) references property(id);
 
-alter table review add foreign key (users) references users(sifra);
-alter table review add foreign key (property) references property(sifra);
+alter table review add foreign key (users) references users(id);
+alter table review add foreign key (property) references property(id);

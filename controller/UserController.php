@@ -10,23 +10,22 @@ class UserController extends AutorizacijaController
 
     public function index()
     {
-
-        $users = User::ucitajSve();
+        $users= User::ucitajSve();
         foreach($users as $user){
-            if(strlen($user->surname)>20){
-               $user->surname=substr($user->surname,0,20) . '...';
+            if(strlen($user->name)){
+               $user->name=substr($user->name,0,20) . '...';
+            }
+            if($user->surname===null){
+                $user->surname='Nije definiran';
             }
             if($user->password===null){
-                $user->password='Nije definirana';
-            }
-            if($user->e_mail===null){
-                $user->e_mail='Nije definirana';
+                $user->password='Nije definiran';
             }
             if($user->phone===null){
-                $user->phone='Nije definirana';
-            }    
+                $user->phone='Nije definiran';
+            }
             if($user->address===null){
-                $user->address='Nije definirana';
+                $user->address='Nije definiran';
             }
         }
         $this->view->render($this->viewDir . 'index',[
@@ -62,7 +61,7 @@ class UserController extends AutorizacijaController
     {
         if ($_SERVER['REQUEST_METHOD']==='GET'){
             $this->promjenaView('Promjenite željene podatke',
-            User::ucitaj($_GET['sifra']));
+            User::ucitaj($_GET['id']));
             return;
         }
 
@@ -75,7 +74,7 @@ class UserController extends AutorizacijaController
     public function brisanje()
     {
               //kontrola da li je šifra došla
-              User::brisanje($_GET['sifra']);
+              User::brisanje($_GET['id']);
               $this->index();  
     }
 

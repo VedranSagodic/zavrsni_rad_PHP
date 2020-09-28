@@ -30,15 +30,13 @@
                 <td><?=$user->phone?></td>
                 <td><?=$user->address?></td>
                 <td>
-                <a href="<?=APP::config('url') ?>user/promjena?sifra=<?=$user->sifra?>">
+                <a href="<?=APP::config('url') ?>user/promjena?id=<?=$user->id?>">
                     <?php include BP . 'view/predlozak/izgledPromjeni.phtml' ?>
                 </a>
-                <?php if ($user->property==0): ?>
                     <a onclick="return confirm('Sigurno obrisati?');"
-                    href="<?=APP::config('url') ?>user/brisanje?sifra=<?=$user->sifra?>">
+                    href="<?=APP::config('url') ?>user/brisanje?id=<?=$user->id?>">
                         <?php include BP . 'view/predlozak/izgledObrisi.phtml' ?>
                     </a>
-                <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>

@@ -1,1 +1,37 @@
-Review
+<?php 
+// najlošije rješenje dovlačenja podataka iz baze je da ovdje se spojimo
+// i dovučemo podatke
+
+?>
+
+<a class="button expanded success" href="<?=APP::config('url') ?>review/novo">
+    <?php include BP . 'view/predlozak/izgledDodajNovi.phtml' ?>
+</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Comment</th>
+            <th>Grade</th>
+            <th>Posted date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($reviews as $review): ?>
+            <tr>
+                <td><?=$review->comment?></td>
+                <td><?=$review->grade?></td>
+                <td><?=$review->posted_date?></td>
+                <td>
+                <a href="<?=APP::config('url') ?>review/promjena?id=<?=$review->id?>">
+                    <?php include BP . 'view/predlozak/izgledPromjeni.phtml' ?>
+                </a>
+                <a href="<?=APP::config('url') ?>review/brisanje?id=<?=$review->id?>">
+                    <?php include BP . 'view/predlozak/izgledObrisi.phtml' ?>
+                </a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>

@@ -1,17 +1,13 @@
+# Čitati https://www.smashingmagazine.com/2011/11/introduction-to-url-rewriting/
+
+# omogučiti URL rewrite
+RewriteEngine On
+
+# preskoči ukoliko datoteka postoji
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# preskoči ukoliko direktorij postoji
+RewriteCond %{REQUEST_FILENAME} !-d
+
 # single entry point
-<IfModule mod_rewrite.c>
-    <IfModule mod_negotiation.c>
-        Options -MultiViews
-    </IfModule>
-
-    RewriteEngine On
-
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)/$ /$1 [L,R=301]
-
-    # Handle Front Controller...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
-</IfModule>
+RewriteRule (.*) index.php [L,E=PATH_INFO:/$1]

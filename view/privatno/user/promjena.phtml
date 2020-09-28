@@ -2,12 +2,14 @@
     action="<?=APP::config('url') ?>user/promjena" 
     method="POST">
 
+
+    <div class="large-6 small-12 cell">
     <label>Name
         <input type="text" name="name" 
         value="<?=$user->name?>" />
     </label>
+    </div>
 
-    <div class="grid-x grid-padding-x">
         <div class="large-6 small-12 cell">
             <label>Surname
             <input type="text" name="surname" 
@@ -20,7 +22,7 @@
                 value="<?=$user->password?>"/>
             </label>
             <label>E-mail
-                <input type="text" name="e_mail" 
+                <input type="text" name="email" 
                 value="<?=$user->e_mail?>"/>
             </label>
             <label>Phone
@@ -34,7 +36,7 @@
         </div>
     </div>
 
-    <input type="hidden" name="sifra" value="<?=$user->sifra ?>" />
+    <input type="hidden" name="id" value="<?=$user->sifra ?>" />
 
     <p>
         <?=$poruka ?>

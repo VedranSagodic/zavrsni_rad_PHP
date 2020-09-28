@@ -1,0 +1,46 @@
+<form
+    action="<?=APP::config('url') ?>review/promjena" 
+    method="POST">
+
+
+    <div class="large-6 small-12 cell">
+    <label>Comment
+        <input type="text" name="comment" 
+        value="<?=$review->comment?>" />
+    </label>
+    </div>
+    <div class="large-6 small-12 cell">
+    <label>Grade
+        <input type="grade" name="grade" 
+        value="<?=$review->grade?>" />
+    </label>
+    </div>
+    <div class="large-6 small-12 cell">
+    <label>Posted date
+        <input type="date" name="posted_date" 
+        value="<?=$review->posted_date?>" />
+    </label>
+    </div>
+
+        
+
+    <input type="hidden" name="id" value="<?=$review->id ?>" />
+
+    <p>
+        <?=$poruka ?>
+    </p>
+
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 small-12 cell">
+        <a class="button expanded alert" 
+        href="<?=APP::config('url') ?>review/index">
+            Cancel
+        </a>    
+        </div>
+        <div class="large-6 small-12 cell">
+            <input type="submit" class="button expanded" 
+                value="Update review"></input>
+        </div>
+    </div>
+
+</form>
